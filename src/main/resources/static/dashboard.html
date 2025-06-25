@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack - Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f5f0f8;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6b1087;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #b01ddd;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 36px;
+            color: #6b1087;
+            margin-bottom: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h2 {
+            color: #b01ddd;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .continue-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #db98ff;
+            color: #000;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .continue-btn:hover {
+            background-color: #d080ff;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .dashboard-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <a href="#" class="logo">FitTrack</a>
+    <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Workout</a>
+        <a href="#">Nutrition</a>
+        <a href="#">Progress</a>
+        <a href="#">Community</a>
+    </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Your personalized health and wellness hub</p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h2>Workout</h2>
+            <p>Stay active with personalized workout plans, guided routines, and real-time activity tracking to help you build strength and consistency at your own pace.</p>
+            <a href="workout.html" class="continue-btn">Continue</a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Progress</h2>
+            <p>Track your health journey with visual insights on workouts, nutrition, mood, and habits; all in one place to keep you motivated and focused.</p>
+            <a href="progress.html" class="continue-btn">Continue</a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Nutrition</h2>
+            <p>Log your meals, monitor your daily nutrition goals, and discover balanced eating habits that support your lifestyle and overall wellness.</p>
+            <a href="nutrition.html" class="continue-btn">Continue</a>
+        </div>
+
+        <div class="feature-card">
+            <h2>Supportive Community</h2>
+            <p>Connect with like-minded users, share wins and struggles, and get encouragement from a positive space designed to support your wellness goals.</p>
+            <a href="#" class="continue-btn">Continue</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
