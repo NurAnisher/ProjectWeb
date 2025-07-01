@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitTrack - Progress Tracking</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitTrack - Progress</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Patua+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: #f5f0f8;
             font-family: 'Inter', sans-serif;
+            background-color: #ffd6f5;
             color: #333;
             line-height: 1.6;
         }
@@ -30,7 +31,7 @@
         }
 
         .logo {
-            font-family: 'Patua One', sans-serif;
+            font-family: 'Patua One', cursive;
             font-size: 28px;
             color: #6b1087;
             text-decoration: none;
@@ -52,350 +53,257 @@
             color: #b01ddd;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .page-header {
+        h1 {
             text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .page-header h1 {
-            font-size: 36px;
             color: #6b1087;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
-        .progress-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .progress-section {
-            background-color: white;
-            border-radius: 15px;
+        .progress-container {
+            max-width: 800px;
+            background: white;
+            margin: auto;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .section-header {
-            color: #b01ddd;
-            font-size: 24px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .progress-item {
-            margin-bottom: 20px;
-        }
-
-        .progress-item h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .progress-photos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+        label {
+            display: block;
             margin-top: 15px;
-        }
-
-        .photo-placeholder {
-            aspect-ratio: 1/1;
-            background-color: #eee;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 14px;
-        }
-
-        .upload-btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: #db98ff;
-            color: #000;
-            border-radius: 30px;
-            font-size: 14px;
             font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
         }
 
-        .measurement-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .measurement-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .milestone-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+        input, textarea {
+            width: 100%;
             padding: 10px;
-            background-color: #f9f5ff;
-            border-radius: 8px;
-        }
-
-        .milestone-item.completed {
-            background-color: #e8f5e9;
-        }
-
-        .milestone-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .workout-suggestions {
-            margin-top: 30px;
-        }
-
-        .workout-card {
-            background-color: #f9f5ff;
+            margin-top: 5px;
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border: 1px solid #ccc;
         }
 
-        .workout-time {
-            font-weight: 600;
-            color: #6b1087;
-            margin-bottom: 5px;
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
         }
 
-        .workout-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .workout-desc {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .goals-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .goal-card {
-            background-color: #f9f5ff;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .goal-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #b01ddd;
-            margin-bottom: 5px;
-        }
-
-        .goal-label {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .goal-progress {
-            height: 5px;
-            background-color: #eee;
-            border-radius: 5px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .goal-progress-bar {
-            height: 100%;
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
             background-color: #b01ddd;
+            transition: background-color 0.3s;
         }
 
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-            }
+        button:hover {
+            background-color: #9a16c7;
+        }
 
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .progress-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-header h1 {
-                font-size: 28px;
-            }
-
-            .progress-photos {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .goals-section {
-                grid-template-columns: 1fr;
-            }
+        .status {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-<!-- Navigation -->
 <nav class="navbar">
-    <a href="index.html" class="logo">FitTrack</a>
+    <a href="#" class="logo">FitTrack</a>
     <div class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="workout.html">Workout</a>
-        <a href="nutrition.html">Nutrition</a>
-        <a href="progress.html" class="active">Progress</a>
-        <a href="community.html">Community</a>
+        <a href="nutrition.html" class="active">Nutrition</a>
+        <a href="progress.html">Progress</a>
     </div>
 </nav>
+<h1>Progress Tracking</h1>
+<div class="progress-container">
+    <form id="progressForm">
+        <label for="user_id">User ID:</label>
+        <input type="number" id="user_id" required />
 
-<!-- Progress Content -->
-<div class="container">
-    <div class="page-header">
-        <h1>Progress</h1>
-    </div>
+        <label for="progress_date">Progress Date:</label>
+        <input type="date" id="progress_date" required />
 
-    <div class="progress-grid">
-        <div class="left-column">
-            <div class="progress-section">
-                <h2 class="section-header">Trigger</h2>
+        <label for="weight_kg">Weight (kg):</label>
+        <input type="number" id="weight_kg" step="0.01" required />
 
-                <div class="progress-item">
-                    <h3>Progress Photos</h3>
-                    <div class="progress-photos">
-                        <div class="photo-placeholder">No photo</div>
-                        <div class="photo-placeholder">No photo</div>
-                        <div class="photo-placeholder">No photo</div>
-                    </div>
-                    <div class="upload-btn">Upload Images</div>
-                </div>
-            </div>
+        <label for="body_fat_percentage">Body Fat (%):</label>
+        <input type="number" id="body_fat_percentage" step="0.01" required />
 
-            <div class="progress-section">
-                <h2 class="section-header">Measurement Log</h2>
+        <label for="waist_cm">Waist (cm):</label>
+        <input type="number" id="waist_cm" step="0.01" required />
 
-                <div class="measurement-item">
-                    <input type="checkbox" id="waist">
-                    <label for="waist">waist: 32 in</label>
-                </div>
-            </div>
+        <label for="hips_cm">Hips (cm):</label>
+        <input type="number" id="hips_cm" step="0.01" required />
 
-            <div class="progress-section">
-                <h2 class="section-header">Milestones</h2>
+        <label for="chest_cm">Chest (cm):</label>
+        <input type="number" id="chest_cm" step="0.01" required />
 
-                <div class="milestone-item completed">
-                    <input type="checkbox" id="milestone1" checked>
-                    <label for="milestone1">Lost 5 lbs | Rn 1 mile</label>
-                </div>
-            </div>
+        <label for="notes">Notes:</label>
+        <textarea id="notes" rows="4"></textarea>
+        <input type="hidden" id="progress_id" />
+        <div class="btn-group">
+            <button type="button" onclick="saveProgress()">Save</button>
+            <button type="button" onclick="updateProgressFromForm()">Update</button>
+            <button type="button" onclick="deleteProgress()">Delete</button>
         </div>
 
-        <div class="right-column">
-            <div class="progress-section">
-                <h2 class="section-header">Training Videos Suggested</h2>
 
-                <div class="workout-suggestions">
-                    <div class="workout-card">
-                        <div class="workout-time">20 MIN</div>
-                        <div class="workout-title">FULL BODY WORKOUT</div>
-                    </div>
-
-                    <div class="workout-card">
-                        <div class="workout-desc">LOW IMPACT WORKOUT FOR BEGINNERS OVER 40</div>
-                    </div>
-
-                    <div class="workout-card">
-                        <div class="workout-time">45 MIN</div>
-                        <div class="workout-title">HILL LUNGE</div>
-                    </div>
-
-                    <div class="workout-card">
-                        <div class="workout-time">30 MIN</div>
-                        <div class="workout-title">FULL BODY WORKOUT</div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 30px;">Today's Goals Suggested</h3>
-
-                <div class="goals-section">
-                    <div class="goal-card">
-                        <div class="goal-value">3,200</div>
-                        <div class="goal-label">Steps /10,000</div>
-                        <div class="goal-progress">
-                            <div class="goal-progress-bar" style="width: 32%"></div>
-                        </div>
-                    </div>
-
-                    <div class="goal-card">
-                        <div class="goal-value">20 MIN</div>
-                        <div class="goal-label">FULL BODY</div>
-                        <div class="workout-desc">THE RIGHT WAY TO DO A SIDE LUNGE</div>
-                    </div>
-
-                    <div class="goal-card">
-                        <div class="goal-value">450</div>
-                        <div class="goal-label">Calories /700 cal</div>
-                        <div class="goal-progress">
-                            <div class="goal-progress-bar" style="width: 64%"></div>
-                        </div>
-                    </div>
-
-                    <div class="goal-card">
-                        <div class="goal-value">17</div>
-                        <div class="goal-label">Workout /30 min</div>
-                        <div class="workout-desc">RIGHT WAY TO DO A RETREAT LUNGE</div>
-                    </div>
-
-                    <div class="goal-card">
-                        <div class="workout-time">30 MIN</div>
-                        <div class="workout-desc">NO JUMPING</div>
-                    </div>
-
-                    <div class="goal-card">
-                        <div class="workout-desc">BEGINNER WEIGHT LOSS ALL HOURS</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
+    <div class="status" id="status"></div>
 </div>
 
 <script>
-    // In a real app, you would add functionality for:
-    // - Uploading progress photos
-    // - Tracking measurements
-    // - Completing milestones
-    // - Updating goal progress
 
-    document.querySelector('.upload-btn').addEventListener('click', function() {
-        // Photo upload functionality would go here
-        alert('Photo upload dialog would appear here');
-    });
+    function getFormData() {
+        return {
+            user_id: document.getElementById('user_id').value,
+            progress_date: document.getElementById('progress_date').value,
+            weight_kg: document.getElementById('weight_kg').value,
+            body_fat_percentage: document.getElementById('body_fat_percentage').value,
+            waist_cm: document.getElementById('waist_cm').value,
+            hips_cm: document.getElementById('hips_cm').value,
+            chest_cm: document.getElementById('chest_cm').value,
+            notes: document.getElementById('notes').value
+        };
+    }
 
-    document.querySelectorAll('.measurement-item input').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if(this.checked) {
-                // Mark measurement as completed
-            }
-        });
-    });
+
+    function updateProgressFromForm() {
+        const userId = document.getElementById("user_id").value;
+        if (!userId) {
+            alert("Please enter a User ID to update.");
+            return;
+        }
+        updateProgress(userId);
+    }
+
+    function updateProgress(userId) {
+        const data = {};
+
+        const progressDate = document.getElementById("progress_date").value;
+        const weightKg = document.getElementById("weight_kg").value;
+        const bodyFatPercentage = document.getElementById("body_fat_percentage").value;
+        const waistCm = document.getElementById("waist_cm").value;
+        const hipsCm = document.getElementById("hips_cm").value;
+        const chestCm = document.getElementById("chest_cm").value;
+        const notes = document.getElementById("notes").value;
+
+        if (progressDate) data.progress_date = progressDate;
+        if (weightKg) data.weight_kg = parseFloat(weightKg);
+        if (bodyFatPercentage) data.body_fat_percentage = parseFloat(bodyFatPercentage);
+        if (waistCm) data.waist_cm = parseFloat(waistCm);
+        if (hipsCm) data.hips_cm = parseFloat(hipsCm);
+        if (chestCm) data.chest_cm = parseFloat(chestCm);
+        if (notes) data.notes = notes;
+
+        fetch(`http://localhost:8080/api/progress/update/by-user/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error("Error updating progress");
+                return response.text();
+            })
+            .then((message) => {
+                alert("Progress updated successfully: " + message);
+            })
+            .catch((error) => {
+                alert("Error: " + error.message);
+            });
+    }
+
+    function deleteProgress() {
+        const progressId = document.getElementById('progress_id').value;
+        if (!progressId) {
+            document.getElementById('status').textContent = 'Please enter a valid Progress ID for delete.';
+            return;
+        }
+
+        fetch(`http://localhost:8080/api/progress/delete/${progressId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress deleted successfully!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to delete progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error deleting progress.';
+            });
+    }
+
+
+    function deleteProgress() {
+        const progressId = document.getElementById('progress_id').value;
+
+        if (!progressId) {
+            document.getElementById('status').textContent = 'Please enter a valid Progress ID for delete.';
+            return;
+        }
+
+        fetch(`http://localhost:8080/api/progress/delete/${progressId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress deleted successfully!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to delete progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error deleting progress.';
+            });
+    }
+
+
+    function saveProgress() {
+        const data = getFormData();
+
+        fetch('http://localhost:8080/api/progress/log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: parseInt(data.user_id),
+                progress_date: data.progress_date,
+                weight_kg: parseFloat(data.weight_kg),
+                body_fat_percentage: parseFloat(data.body_fat_percentage),
+                waist_cm: parseFloat(data.waist_cm),
+                hips_cm: parseFloat(data.hips_cm),
+                chest_cm: parseFloat(data.chest_cm),
+                notes: data.notes
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress saved to database!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to save progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error saving progress.';
+            });
+
+    }
+
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>FitTrack - Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -15,7 +15,7 @@
         }
 
         body {
-            background-color: #f5f0f8;
+            background-color: #ffd6f5; /* Pink background */
             color: #333;
         }
 
@@ -50,6 +50,11 @@
 
         .nav-links a:hover {
             color: #b01ddd;
+        }
+
+        .nav-links a.active {
+            color: #b01ddd;
+            font-weight: 700;
         }
 
         .dashboard-container {
@@ -115,6 +120,27 @@
             background-color: #d080ff;
         }
 
+        .quick-buttons {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .quick-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 30px;
+            background-color: #b01ddd;
+            color: white;
+            font-weight: 600;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .quick-buttons a:hover {
+            background-color: #9a16c7;
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -134,15 +160,16 @@
     </style>
 </head>
 <body>
+
 <!-- Navigation -->
 <nav class="navbar">
-    <a href="#" class="logo">FitTrack</a>
+    <a href="login.html" class="logo">FitTrack</a>
     <div class="nav-links">
-        <a href="#" class="active">Dashboard</a>
-        <a href="#">Workout</a>
-        <a href="#">Nutrition</a>
-        <a href="#">Progress</a>
-        <a href="#">Community</a>
+        <a href="login.html" class="active">Dashboard</a>
+        <a href="workout.html">Workout</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="progress.html">Progress</a>
+        <a href="community.html">Community</a>
     </div>
 </nav>
 
@@ -178,6 +205,13 @@
             <a href="#" class="continue-btn">Continue</a>
         </div>
     </div>
+
+    <!-- Quick Access Buttons -->
+    <div class="quick-buttons">
+        <a href="nutrition.html">Go to Nutrition</a>
+        <a href="progress.html">Go to Progress</a>
+    </div>
 </div>
+
 </body>
 </html>

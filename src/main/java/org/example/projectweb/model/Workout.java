@@ -1,31 +1,26 @@
 package org.example.projectweb.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "workouts")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Workout {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workout_id")
     private Long workoutId;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @Column(name = "workout_date")
-    private LocalDate workoutDate;
-
-    @Column(name = "workout_title")
-    private String workoutTitle;
-
-    @Column(name = "workout_type")
-    private String workoutType;
-
-    @Column(name = "duration_minutes")
-    private Integer durationMinutes;
-
-    private String notes;
+    private int userId;
+    private int exerciseId;
+    private int sets;
+    private int reps;
+    private double weightKg;
+    private int durationSeconds;
+    private int restSeconds;
 }

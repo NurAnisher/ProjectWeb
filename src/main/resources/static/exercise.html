@@ -1,0 +1,75 @@
+<!-- exercise.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Exercise - FitTrack</title>
+    <style>
+        body { background: #ffe1f0; font-family: 'Inter', sans-serif; padding: 20px; }
+        h1 { color: #6b1087; text-align: center; }
+        .form-container {
+            max-width: 600px; margin: auto; background: white; padding: 30px;
+            border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        label { font-weight: bold; display: block; margin-top: 15px; }
+        input, textarea {
+            width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px; padding: 10px 25px; background: #b01ddd;
+            border: none; color: white; border-radius: 20px; cursor: pointer;
+        }
+        button:hover { background: #9a16c7; }
+        .status { margin-top: 15px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+<h1>Add New Exercise</h1>
+<div class="form-container">
+    <form id="exerciseForm">
+        <label for="name">Exercise Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" required>
+
+        <label for="equipment">Equipment Requirement:</label>
+        <input type="text" id="equipment" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" required></textarea>
+
+        <button type="button" onclick="addExercise()">Add Exercise</button>
+    </form>
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:8080/api/exercises/add';
+
+    async function addExercise() {
+        const data = {
+            name: document.getElementById('name').value,
+            category: document.getElementById('category').value,
+            equipmentRequirement: document.getElementById('equipment').value,
+            description: document.getElementById('description').value
+        };
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const status = document.getElementById('status');
+        if (response.ok) {
+            status.textContent = 'Exercise added successfully!';
+            document.getElementById('exerciseForm').reset();
+        } else {
+            status.textContent = 'Failed to add exercise.';
+        }
+    }
+</script>
+</body>
+</html>

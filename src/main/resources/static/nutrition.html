@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FitTrack - Nutrition Logging</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Patua+One&display=swap');
@@ -14,7 +14,7 @@
     }
 
     body {
-      background-color: #f5f0f8;
+      background-color: #ffd6f5; /* Light pink background */
       font-family: 'Inter', sans-serif;
       color: #333;
       line-height: 1.6;
@@ -60,84 +60,58 @@
 
     .page-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .page-header h1 {
       font-size: 36px;
       color: #6b1087;
-      margin-bottom: 10px;
     }
 
-    .nutrition-section {
+    .form-section {
       background-color: white;
       border-radius: 15px;
       padding: 30px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
     }
 
-    .section-header {
+    .form-section h2 {
       color: #b01ddd;
       font-size: 24px;
       margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
     }
 
-    .meal-item {
-      margin-bottom: 25px;
-    }
-
-    .meal-name {
-      font-weight: 600;
-      color: #333;
+    label {
+      font-weight: 500;
+      display: block;
+      margin-top: 15px;
       margin-bottom: 5px;
     }
 
-    .calories {
-      color: #666;
-      margin-bottom: 5px;
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
 
-    .macros {
-      display: flex;
-      gap: 15px;
-      color: #555;
-      font-size: 14px;
+    .meal-list {
+      margin-top: 30px;
     }
 
-    .water-intake {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .water-bar {
-      flex-grow: 1;
-      height: 10px;
-      background-color: #eee;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .water-progress {
-      height: 100%;
-      background-color: #6b8cff;
-      width: 60%; /* 1.5/2.5 = 60% */
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #db98ff, transparent);
-      margin: 25px 0;
+    .meal-entry {
+      background-color: #ffe6ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
     }
 
     .action-buttons {
       display: flex;
       justify-content: flex-end;
       gap: 15px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
     .btn {
@@ -167,129 +141,149 @@
     .btn-save:hover {
       background-color: #9a16c7;
     }
-
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .page-header h1 {
-        font-size: 28px;
-      }
-
-      .action-buttons {
-        justify-content: center;
-      }
-    }
   </style>
 </head>
 <body>
+
 <!-- Navigation -->
 <nav class="navbar">
-  <a href="index.html" class="logo">FitTrack</a>
+  <a href="#" class="logo">FitTrack</a>
   <div class="nav-links">
     <a href="dashboard.html">Dashboard</a>
     <a href="workout.html">Workout</a>
     <a href="nutrition.html" class="active">Nutrition</a>
     <a href="progress.html">Progress</a>
-    <a href="community.html">Community</a>
   </div>
 </nav>
 
-<!-- Nutrition Content -->
+<!-- Main Content -->
 <div class="container">
   <div class="page-header">
     <h1>Nutrition Logging</h1>
   </div>
 
-  <div class="nutrition-section">
-    <h2 class="section-header">Meals Input Section</h2>
+  <div class="form-section">
+    <h2>Log Your Meal</h2>
 
-    <div class="meal-item">
-      <h3 class="meal-name">Breakfast</h3>
-      <div class="calories">Food: Oatmeal with Banana | Calories: 250 kcal</div>
-      <div class="macros">
-        <span>C: 30g</span>
-        <span>P: 5g</span>
-        <span>F: 8g</span>
-      </div>
-    </div>
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" placeholder="Enter your User ID" />
 
-    <div class="meal-item">
-      <h3 class="meal-name">Lunch</h3>
-      <div class="calories">Food: Grilled Chicken Sandwich | Calories: 420 kcal</div>
-      <div class="macros">
-        <span>C: 35g</span>
-        <span>P: 28g</span>
-        <span>F: 12g</span>
-      </div>
-    </div>
+    <label for="mealDate">Meal Date:</label>
+    <input type="date" id="mealDate" />
 
-    <div class="meal-item">
-      <h3 class="meal-name">Water Intake</h3>
-      <div class="water-intake">
-        <span>Water Drank Today: 1.5 / 2.5 Liters</span>
-        <div class="water-bar">
-          <div class="water-progress"></div>
-        </div>
-      </div>
-    </div>
+    <label for="mealType">Meal Type:</label>
+    <select id="mealType">
+      <option value="Breakfast">Breakfast</option>
+      <option value="Lunch">Lunch</option>
+      <option value="Dinner">Dinner</option>
+      <option value="Snacks">Snacks</option>
+    </select>
 
-    <div class="divider"></div>
+    <label for="foodName">Food Name:</label>
+    <input type="text" id="foodName" placeholder="e.g. Oatmeal with Banana" />
 
-    <div class="meal-item">
-      <h3 class="meal-name">Snacks</h3>
-      <div class="calories">Food: Protein Bar | Calories: 180 kcal</div>
-      <div class="macros">
-        <span>C: 20g</span>
-        <span>P: 10g</span>
-        <span>F: 5g</span>
-      </div>
-    </div>
+    <label for="quantity">Quantity:</label>
+    <input type="text" id="quantity" placeholder="e.g. 1 bowl / 2 pieces" />
 
-    <div class="divider"></div>
+    <label for="calories">Calories (kcal):</label>
+    <input type="number" id="calories" placeholder="e.g. 250" />
 
-    <div class="meal-item">
-      <h3 class="meal-name">Dinner</h3>
-      <div class="calories">Food: Salmon Salad | Calories: 380 kcal</div>
-      <div class="macros">
-        <span>C: 15g</span>
-        <span>P: 30g</span>
-        <span>F: 20g</span>
-      </div>
-    </div>
+    <label for="protein">Protein (g):</label>
+    <input type="number" id="protein" step="0.01" placeholder="e.g. 5.5" />
+
+    <label for="carbs">Carbs (g):</label>
+    <input type="number" id="carbs" step="0.01" placeholder="e.g. 35.2" />
+
+    <label for="fats">Fats (g):</label>
+    <input type="number" id="fats" step="0.01" placeholder="e.g. 2.1" />
 
     <div class="action-buttons">
-      <button class="btn btn-reset">RESET</button>
-      <button class="btn btn-save">SAVE</button>
+      <button class="btn btn-reset" onclick="resetForm()">RESET</button>
+      <button class="btn btn-save" onclick="saveMeal()">ADD</button>
     </div>
+
+    <div class="meal-list" id="mealList"></div>
   </div>
 </div>
 
 <script>
-  // In a real app, you would add functionality for:
-  // - Editing meal entries
-  // - Tracking water intake
-  // - Saving/resetting data
+  function resetForm() {
+    document.getElementById('userId').value = '';
+    document.getElementById('mealDate').value = '';
+    document.getElementById('mealType').value = 'Breakfast';
+    document.getElementById('foodName').value = '';
+    document.getElementById('quantity').value = '';
+    document.getElementById('calories').value = '';
+    document.getElementById('protein').value = '';
+    document.getElementById('carbs').value = '';
+    document.getElementById('fats').value = '';
+  }
+  //
+  // function addMeal() {
+  //   const user_id = document.getElementById('userId').value.trim();
+  //   const meal_date = document.getElementById('mealDate').value;
+  //   const meal_type = document.getElementById('mealType').value;
+  //   const food_name = document.getElementById('foodName').value.trim();
+  //   const quantity = document.getElementById('quantity').value.trim();
+  //   const total_calories = document.getElementById('calories').value.trim();
+  //   const protein_g = document.getElementById('protein').value.trim();
+  //   const carbs_g = document.getElementById('carbs').value.trim();
+  //   const fats_g = document.getElementById('fats').value.trim();
+  //
+  //   if (!user_id || !meal_date || !food_name || !total_calories || !protein_g || !carbs_g || !fats_g || !quantity) {
+  //     alert('Please fill in all fields.');
+  //     return;
+  //   }
+  //
+  //   const mealData = {
+  //     userId: parseInt(user_id),
+  //     mealDate: meal_date,
+  //     mealType: meal_type,
+  //     foodName: food_name,
+  //     quantity: quantity,
+  //     totalCalories: parseFloat(total_calories), // NOTE: should match backend field
+  //     protein: parseFloat(protein_g),
+  //     carbs: parseFloat(carbs_g),
+  //     fats: parseFloat(fats_g)
+  //   };
+  //
 
-  document.querySelector('.btn-reset').addEventListener('click', function() {
-    if(confirm('Are you sure you want to reset all nutrition data for today?')) {
-      // Reset functionality would go here
-      alert('Nutrition data has been reset');
+
+  async function saveMeal() {
+    const data = {
+      userId: parseInt(document.getElementById('userId').value),
+      mealDate: document.getElementById('mealDate').value,
+      mealType: document.getElementById('mealType').value,
+      foodName: document.getElementById('foodName').value,
+      quantity: document.getElementById('quantity').value,
+      calories: parseInt(document.getElementById('calories').value),
+      protein: parseFloat(document.getElementById('protein').value),
+      carbs: parseFloat(document.getElementById('carbs').value),
+      fats: parseFloat(document.getElementById('fats').value)
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/api/meals/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert("Meal saved!");
+        resetForm();
+      } else {
+        const errText = await response.text();
+        console.error("Server responded with error:", errText);
+        alert("Error saving meal: " + errText);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Failed to connect to server.");
     }
-  });
+  }
 
-  document.querySelector('.btn-save').addEventListener('click', function() {
-    // Save functionality would go here
-    alert('Nutrition data has been saved');
-  });
 </script>
+
 </body>
 </html>
