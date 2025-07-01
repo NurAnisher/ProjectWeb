@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FitTrack - Workout Logging</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #ffd6f5;
+            color: #333; line-height: 1.6;
+        }
+        .navbar {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 20px 50px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-family: 'Patua One', sans-serif;
+            font-size: 28px; color: #6b1087;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex; gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none; color: #555; font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #b01ddd;
+        }
+        h1 {
+            text-align: center;
+            color: #6b1087;
+            margin-bottom: 30px;
+        }
+        .form-container {
+            max-width: 700px;
+            background: #fff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            background-color: #b01ddd;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #9a16c7;
+        }
+        .status {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="logo">FitTrack</a>
+    <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="workout.html" class="active">Workout</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="progress.html">Progress</a>
+    </div>
+</nav>
+<h1>Workout Logging</h1>
+<div class="form-container">
+    <form id="workoutForm">
+        <label for="userid">User ID:</label>
+        <input type="number" id="userid" required />
+
+        <label for="workout_date">Workout Date:</label>
+        <input type="date" id="workout_date" required />
+
+        <label for="sets">Sets:</label>
+        <input type="number" id="sets" required />
+
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" required />
+
+        <label for="weight_kg">Weight (kg):</label>
+        <input type="number" id="weight_kg" step="0.01" required />
+
+        <label for="duration_seconds">Duration (seconds):</label>
+        <input type="number" id="duration_seconds" required />
+
+        <label for="rest_seconds">Rest (seconds):</label>
+        <input type="number" id="rest_seconds" required />
+
+        <div class="btn-group">
+            <button type="button" onclick="saveWorkout()">Save</button>
+        </div>
+    </form>
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+    const API_BASE = 'http://localhost:8080/api/workouts';
+
+    function getFormData() {
+        return {
+            userId: parseInt(document.getElementById('userid').value),
+            workoutDate: document.getElementById('workout_date').value,
+            sets: parseInt(document.getElementById('sets').value),
+            reps: parseInt(document.getElementById('reps').value),
+            weightKg: parseFloat(document.getElementById('weight_kg').value),
+            durationSeconds: parseInt(document.getElementById('duration_seconds').value),
+            restSeconds: parseInt(document.getElementById('rest_seconds').value)
+        };
+    }
+
+    async function saveWorkout() {
+        const data = getFormData();
+        const response = await fetch(`${API_BASE}/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            document.getElementById('status').textContent = 'Workout saved successfully!';
+        } else {
+            document.getElementById('status').textContent = 'Failed to save workout.';
+        }
+    }
+</script>
+</body>
+</html>

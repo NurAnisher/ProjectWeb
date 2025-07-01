@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitTrack - Progress</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffd6f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: 'Patua One', cursive;
+            font-size: 28px;
+            color: #6b1087;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #b01ddd;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6b1087;
+            margin-bottom: 30px;
+        }
+
+        .progress-container {
+            max-width: 800px;
+            background: white;
+            margin: auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            background-color: #b01ddd;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #9a16c7;
+        }
+
+        .status {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="#" class="logo">FitTrack</a>
+    <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="workout.html">Workout</a>
+        <a href="nutrition.html" class="active">Nutrition</a>
+        <a href="progress.html">Progress</a>
+    </div>
+</nav>
+<h1>Progress Tracking</h1>
+<div class="progress-container">
+    <form id="progressForm">
+        <label for="user_id">User ID:</label>
+        <input type="number" id="user_id" required />
+
+        <label for="progress_date">Progress Date:</label>
+        <input type="date" id="progress_date" required />
+
+        <label for="weight_kg">Weight (kg):</label>
+        <input type="number" id="weight_kg" step="0.01" required />
+
+        <label for="body_fat_percentage">Body Fat (%):</label>
+        <input type="number" id="body_fat_percentage" step="0.01" required />
+
+        <label for="waist_cm">Waist (cm):</label>
+        <input type="number" id="waist_cm" step="0.01" required />
+
+        <label for="hips_cm">Hips (cm):</label>
+        <input type="number" id="hips_cm" step="0.01" required />
+
+        <label for="chest_cm">Chest (cm):</label>
+        <input type="number" id="chest_cm" step="0.01" required />
+
+        <label for="notes">Notes:</label>
+        <textarea id="notes" rows="4"></textarea>
+        <input type="hidden" id="progress_id" />
+        <div class="btn-group">
+            <button type="button" onclick="saveProgress()">Save</button>
+            <button type="button" onclick="updateProgressFromForm()">Update</button>
+            <button type="button" onclick="deleteProgress()">Delete</button>
+        </div>
+
+
+    </form>
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+
+    function getFormData() {
+        return {
+            user_id: document.getElementById('user_id').value,
+            progress_date: document.getElementById('progress_date').value,
+            weight_kg: document.getElementById('weight_kg').value,
+            body_fat_percentage: document.getElementById('body_fat_percentage').value,
+            waist_cm: document.getElementById('waist_cm').value,
+            hips_cm: document.getElementById('hips_cm').value,
+            chest_cm: document.getElementById('chest_cm').value,
+            notes: document.getElementById('notes').value
+        };
+    }
+
+
+    function updateProgressFromForm() {
+        const userId = document.getElementById("user_id").value;
+        if (!userId) {
+            alert("Please enter a User ID to update.");
+            return;
+        }
+        updateProgress(userId);
+    }
+
+    function updateProgress(userId) {
+        const data = {};
+
+        const progressDate = document.getElementById("progress_date").value;
+        const weightKg = document.getElementById("weight_kg").value;
+        const bodyFatPercentage = document.getElementById("body_fat_percentage").value;
+        const waistCm = document.getElementById("waist_cm").value;
+        const hipsCm = document.getElementById("hips_cm").value;
+        const chestCm = document.getElementById("chest_cm").value;
+        const notes = document.getElementById("notes").value;
+
+        if (progressDate) data.progress_date = progressDate;
+        if (weightKg) data.weight_kg = parseFloat(weightKg);
+        if (bodyFatPercentage) data.body_fat_percentage = parseFloat(bodyFatPercentage);
+        if (waistCm) data.waist_cm = parseFloat(waistCm);
+        if (hipsCm) data.hips_cm = parseFloat(hipsCm);
+        if (chestCm) data.chest_cm = parseFloat(chestCm);
+        if (notes) data.notes = notes;
+
+        fetch(`http://localhost:8080/api/progress/update/by-user/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error("Error updating progress");
+                return response.text();
+            })
+            .then((message) => {
+                alert("Progress updated successfully: " + message);
+            })
+            .catch((error) => {
+                alert("Error: " + error.message);
+            });
+    }
+
+    function deleteProgress() {
+        const progressId = document.getElementById('progress_id').value;
+        if (!progressId) {
+            document.getElementById('status').textContent = 'Please enter a valid Progress ID for delete.';
+            return;
+        }
+
+        fetch(`http://localhost:8080/api/progress/delete/${progressId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress deleted successfully!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to delete progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error deleting progress.';
+            });
+    }
+
+
+    function deleteProgress() {
+        const progressId = document.getElementById('progress_id').value;
+
+        if (!progressId) {
+            document.getElementById('status').textContent = 'Please enter a valid Progress ID for delete.';
+            return;
+        }
+
+        fetch(`http://localhost:8080/api/progress/delete/${progressId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress deleted successfully!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to delete progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error deleting progress.';
+            });
+    }
+
+
+    function saveProgress() {
+        const data = getFormData();
+
+        fetch('http://localhost:8080/api/progress/log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: parseInt(data.user_id),
+                progress_date: data.progress_date,
+                weight_kg: parseFloat(data.weight_kg),
+                body_fat_percentage: parseFloat(data.body_fat_percentage),
+                waist_cm: parseFloat(data.waist_cm),
+                hips_cm: parseFloat(data.hips_cm),
+                chest_cm: parseFloat(data.chest_cm),
+                notes: data.notes
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'Progress saved to database!';
+                } else {
+                    document.getElementById('status').textContent = 'Failed to save progress.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error saving progress.';
+            });
+
+    }
+
+</script>
+</body>
+</html>

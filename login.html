@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FitTrack - Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #ffd6f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: #6b1087;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .login-btn {
+            background-color: #b01ddd;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #9a16c7;
+        }
+
+        .small-text {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .small-text a {
+            color: #b01ddd;
+            text-decoration: none;
+        }
+
+        .small-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h1>Login to FitTrack</h1>
+    <form onsubmit="return handleLogin(event)">
+        <input type="text" id="username" placeholder="Email or Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <a href="dashboard.html" class="login-btn">Login</a>
+    </form>
+    <div class="small-text">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+</div>
+
+<script>
+    function handleLogin(event) {
+        event.preventDefault();
+        const name = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // Dummy login check
+        if (username === 'admin' && password === 'admin123') {
+            window.location.href = 'dashboard.html'; // ✅ Redirect
+        } else {
+            alert('Invalid credentials. Please try again.');
+        }
+    }
+</script>
+</body>
+</html>
