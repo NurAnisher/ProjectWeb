@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitTrack - Nutrition Logging</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Patua+One&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ffd6f5; /* Light pink background */
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-family: 'Patua One', sans-serif;
+      font-size: 28px;
+      color: #6b1087;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #b01ddd;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+      font-size: 36px;
+      color: #6b1087;
+    }
+
+    .form-section {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-section h2 {
+      color: #b01ddd;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .meal-list {
+      margin-top: 30px;
+    }
+
+    .meal-entry {
+      background-color: #ffe6ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-reset {
+      background-color: white;
+      border: 2px solid #ff6b6b;
+      color: #ff6b6b;
+    }
+
+    .btn-reset:hover {
+      background-color: #ffebeb;
+    }
+
+    .btn-save {
+      background-color: #b01ddd;
+      border: 2px solid #b01ddd;
+      color: white;
+    }
+
+    .btn-save:hover {
+      background-color: #9a16c7;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <a href="#" class="logo">FitTrack</a>
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="workout.html">Workout</a>
+    <a href="nutrition.html" class="active">Nutrition</a>
+    <a href="progress.html">Progress</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="page-header">
+    <h1>Nutrition Logging</h1>
+  </div>
+
+  <div class="form-section">
+    <h2>Log Your Meal</h2>
+
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" placeholder="Enter your User ID" />
+
+    <label for="mealDate">Meal Date:</label>
+    <input type="date" id="mealDate" />
+
+    <label for="mealType">Meal Type:</label>
+    <select id="mealType">
+      <option value="Breakfast">Breakfast</option>
+      <option value="Lunch">Lunch</option>
+      <option value="Dinner">Dinner</option>
+      <option value="Snacks">Snacks</option>
+    </select>
+
+    <label for="foodName">Food Name:</label>
+    <input type="text" id="foodName" placeholder="e.g. Oatmeal with Banana" />
+
+    <label for="quantity">Quantity:</label>
+    <input type="text" id="quantity" placeholder="e.g. 1 bowl / 2 pieces" />
+
+    <label for="calories">Calories (kcal):</label>
+    <input type="number" id="calories" placeholder="e.g. 250" />
+
+    <label for="protein">Protein (g):</label>
+    <input type="number" id="protein" step="0.01" placeholder="e.g. 5.5" />
+
+    <label for="carbs">Carbs (g):</label>
+    <input type="number" id="carbs" step="0.01" placeholder="e.g. 35.2" />
+
+    <label for="fats">Fats (g):</label>
+    <input type="number" id="fats" step="0.01" placeholder="e.g. 2.1" />
+
+    <div class="action-buttons">
+      <button class="btn btn-reset" onclick="resetForm()">RESET</button>
+      <button class="btn btn-save" onclick="saveMeal()">ADD</button>
+    </div>
+
+    <div class="meal-list" id="mealList"></div>
+  </div>
+</div>
+
+<script>
+  function resetForm() {
+    document.getElementById('userId').value = '';
+    document.getElementById('mealDate').value = '';
+    document.getElementById('mealType').value = 'Breakfast';
+    document.getElementById('foodName').value = '';
+    document.getElementById('quantity').value = '';
+    document.getElementById('calories').value = '';
+    document.getElementById('protein').value = '';
+    document.getElementById('carbs').value = '';
+    document.getElementById('fats').value = '';
+  }
+  //
+  // function addMeal() {
+  //   const user_id = document.getElementById('userId').value.trim();
+  //   const meal_date = document.getElementById('mealDate').value;
+  //   const meal_type = document.getElementById('mealType').value;
+  //   const food_name = document.getElementById('foodName').value.trim();
+  //   const quantity = document.getElementById('quantity').value.trim();
+  //   const total_calories = document.getElementById('calories').value.trim();
+  //   const protein_g = document.getElementById('protein').value.trim();
+  //   const carbs_g = document.getElementById('carbs').value.trim();
+  //   const fats_g = document.getElementById('fats').value.trim();
+  //
+  //   if (!user_id || !meal_date || !food_name || !total_calories || !protein_g || !carbs_g || !fats_g || !quantity) {
+  //     alert('Please fill in all fields.');
+  //     return;
+  //   }
+  //
+  //   const mealData = {
+  //     userId: parseInt(user_id),
+  //     mealDate: meal_date,
+  //     mealType: meal_type,
+  //     foodName: food_name,
+  //     quantity: quantity,
+  //     totalCalories: parseFloat(total_calories), // NOTE: should match backend field
+  //     protein: parseFloat(protein_g),
+  //     carbs: parseFloat(carbs_g),
+  //     fats: parseFloat(fats_g)
+  //   };
+  //
+
+
+  async function saveMeal() {
+    const data = {
+      userId: parseInt(document.getElementById('userId').value),
+      mealDate: document.getElementById('mealDate').value,
+      mealType: document.getElementById('mealType').value,
+      foodName: document.getElementById('foodName').value,
+      quantity: document.getElementById('quantity').value,
+      calories: parseInt(document.getElementById('calories').value),
+      protein: parseFloat(document.getElementById('protein').value),
+      carbs: parseFloat(document.getElementById('carbs').value),
+      fats: parseFloat(document.getElementById('fats').value)
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/api/meals/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert("Meal saved!");
+        resetForm();
+      } else {
+        const errText = await response.text();
+        console.error("Server responded with error:", errText);
+        alert("Error saving meal: " + errText);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Failed to connect to server.");
+    }
+  }
+
+</script>
+
+</body>
+</html>
